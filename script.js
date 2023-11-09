@@ -55,7 +55,7 @@ const runPodInstall = () => {
   const templateDir = path.join(__dirname, "template");
 
   console.log("Running pod install...");
-  execSync("cd ios && pod install", { stdio: "inherit", cwd: templateDir });
+  execSync("npx pod-install ios", { stdio: "inherit", cwd: templateDir });
   console.log("Pod install completed successfully.");
 };
 
