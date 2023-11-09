@@ -65,10 +65,6 @@ const main = () => {
 
   // Create the template directory
   createTemplate();
-
-  // Run pod install in the ios directory
-
-  runPodInstall();
 };
 
 main();
