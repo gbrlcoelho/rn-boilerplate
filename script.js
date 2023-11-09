@@ -51,12 +51,29 @@ const createTemplate = () => {
   console.log("Template created successfully.");
 };
 
+const runPodInstall = () => {
+  const iosDir = path.join(__dirname, "ios");
+
+  // Check if the ios directory exists
+  if (fs.existsSync(iosDir)) {
+    console.log("Running pod install...");
+    execSync("pod install", { stdio: "inherit", cwd: iosDir });
+    console.log("Pod install completed successfully.");
+  } else {
+    console.log("iOS directory not found. Skipping pod install.");
+  }
+};
+
 const main = () => {
   // Install dependencies
   installDependencies();
 
   // Create the template directory
   createTemplate();
+
+  // Run pod install in the ios directory
+
+  runPodInstall();
 };
 
 main();
