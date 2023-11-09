@@ -1,3 +1,5 @@
+#!/usr/bin/env node
+
 const { execSync } = require("child_process");
 const path = require("path");
 const fs = require("fs");
@@ -18,9 +20,6 @@ const installDependencies = () => {
     "react-native-svg",
     "zod",
     "zustand",
-  ];
-
-  const devDependencies = [
     "@tanstack/eslint-plugin-query",
     "@testing-library/jest-native",
     "@testing-library/react-native",
@@ -37,10 +36,6 @@ const installDependencies = () => {
   console.log("Installing dependencies...");
   execSync(`yarn add ${dependencies.join(" ")}`, { stdio: "inherit" });
   console.log("Dependencies installed successfully.");
-
-  console.log("Installing dev dependencies...");
-  execSync(`yarn add ${devDependencies.join(" ")} -D`, { stdio: "inherit" });
-  console.log("Dev dependencies installed successfully.");
 };
 
 const createTemplate = () => {
@@ -57,7 +52,7 @@ const createTemplate = () => {
 };
 
 const main = () => {
-  // Install dependencies and dev dependencies
+  // Install dependencies
   installDependencies();
 
   // Create the template directory
