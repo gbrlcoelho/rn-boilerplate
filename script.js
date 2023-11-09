@@ -51,14 +51,6 @@ const createTemplate = () => {
   console.log("Template created successfully.");
 };
 
-const runPodInstall = () => {
-  const templateDir = path.join(__dirname, "template");
-
-  console.log("Running pod install...");
-  execSync("npx pod-install ios", { stdio: "inherit", cwd: templateDir });
-  console.log("Pod install completed successfully.");
-};
-
 const main = () => {
   // Install dependencies
   installDependencies();
