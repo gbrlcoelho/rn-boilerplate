@@ -20,6 +20,10 @@ const installDependencies = () => {
     "react-native-svg",
     "zod",
     "zustand",
+    "react-native-reanimated",
+  ];
+
+  const devDependencies = [
     "@tanstack/eslint-plugin-query",
     "@testing-library/jest-native",
     "@testing-library/react-native",
@@ -36,26 +40,25 @@ const installDependencies = () => {
   console.log("Installing dependencies...");
   execSync(`yarn add ${dependencies.join(" ")}`, { stdio: "inherit" });
   console.log("Dependencies installed successfully.");
+
+  console.log("Installing dev dependencies...");
+  execSync(`yarn add ${devDependencies.join(" ")} -D`, { stdio: "inherit" });
+  console.log("Dev dependencies installed successfully.");
 };
 
 const createTemplate = () => {
   const templateDir = path.join(__dirname, "template");
 
-  // Create the template directory if it doesn't exist
   if (!fs.existsSync(templateDir)) {
     fs.mkdirSync(templateDir);
   }
-
-  // You can add any additional setup for your template here
 
   console.log("Template created successfully.");
 };
 
 const main = () => {
-  // Install dependencies
   installDependencies();
 
-  // Create the template directory
   createTemplate();
 };
 
