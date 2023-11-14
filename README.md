@@ -7,7 +7,7 @@ A React Native project boilerplate with a set of useful dependencies and develop
 To initialize a new project using this boilerplate, run the following command:
 
 ```bash
-npx react-native@latest init AwesomeProject --template https://github.com/gbrlcoelho/rn-boilerplate
+npx react-native@latest init AwesomeProject --template @gbrlcoelho/react-native-boilerplate
 ```
 
 ## Dependencies
