@@ -1,10 +1,10 @@
 # React Native Boilerplate
 
-A React Native project template with a set of useful dependencies and development tools.
+A React Native project boilerplate with a set of useful dependencies and development tools.
 
 ## Getting Started
 
-To initialize a new project using this template, run the following command:
+To initialize a new project using this boilerplate, run the following command:
 
 ```bash
 npx react-native@latest init AwesomeProject --template https://github.com/gbrlcoelho/rn-boilerplate
