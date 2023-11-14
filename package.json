@@ -1,7 +1,7 @@
 {
   "name": "@gbrlcoelho/react-native-boilerplate",
-  "version": "0.0.1",
-  "description": "React Native Template",
+  "version": "0.0.2",
+  "description": "React Native Boilerplate",
   "repository": {
     "type": "git",
     "url": "git+ssh://git@github.com/gbrlcoelho/rn-boilerplate.git"
