@@ -29,12 +29,12 @@ const installDependencies = () => {
     "@testing-library/react-native",
     "babel-plugin-module-resolver",
     "cz-conventional-changelog",
-    "husky",
     "eslint-plugin-import",
     "lint-staged",
     "msw",
     "ts-node",
     "react-native-dotenv",
+    "husky",
   ];
 
   console.log("Installing dependencies...");
@@ -44,30 +44,38 @@ const installDependencies = () => {
   console.log("Installing dev dependencies...");
   execSync(`yarn add ${devDependencies.join(" ")} -D`, { stdio: "inherit" });
   console.log("Dev dependencies installed successfully.");
-
-  console.log("Installing husky...");
-  execSync(`yarn add husky -D`, { stdio: "inherit" });
-  console.log("Husky installed successfully.");
 };
 
-const createTemplate = () => {
-  const templateDir = path.join(__dirname, "template");
+// const createTemplate = () => {
+//   const templateDir = path.join(__dirname, "template");
 
-  if (!fs.existsSync(templateDir)) {
-    fs.mkdirSync(templateDir);
-  }
+//   if (!fs.existsSync(templateDir)) {
+//     fs.mkdirSync(templateDir);
+//   }
 
-  console.log("Template created successfully.");
-};
+//   console.log("Template created successfully.");
+// };
+
+// const addPrepareScript = () => {
+//   console.log("Adding prepare script...");
+//   const packageJsonPath = path.join(process.cwd(), "package.json");
+//   const packageJson = require(packageJsonPath);
+
+//   packageJson.scripts = packageJson.scripts || {};
+//   packageJson.scripts.prepare = "husky install";
+
+//   fs.writeFileSync(packageJsonPath, JSON.stringify(packageJson, null, 2));
+//   console.log("Prepare script added successfully.");
+// };
 
 const main = () => {
   installDependencies();
 
-  console.log("Running husky install...");
-  execSync("yarn husky install", { stdio: "inherit" });
-  console.log("Husky install completed.");
+  // addPrepareScript();
 
-  createTemplate();
+  // execSync("yarn", { stdio: "inherit" });
+
+  // createTemplate();
 };
 
 main();
