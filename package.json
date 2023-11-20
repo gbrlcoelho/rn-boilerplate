@@ -1,6 +1,6 @@
 {
   "name": "@gbrlcoelho/react-native-boilerplate",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "React Native Boilerplate",
   "repository": {
     "type": "git",
@@ -16,7 +16,7 @@
     "starter-kit"
   ],
   "files": [
-    "src"
+    "template"
   ],
   "bugs": {
     "url": "https://github.com/gbrlcoelho/rn-boilerplate/issues"
