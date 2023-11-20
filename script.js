@@ -44,6 +44,10 @@ const installDependencies = () => {
   console.log("Installing dev dependencies...");
   execSync(`yarn add ${devDependencies.join(" ")} -D`, { stdio: "inherit" });
   console.log("Dev dependencies installed successfully.");
+
+  console.log("Installing husky...");
+  execSync(`yarn add husky -D`, { stdio: "inherit" });
+  console.log("Husky installed successfully.");
 };
 
 const createTemplate = () => {
@@ -58,6 +62,10 @@ const createTemplate = () => {
 
 const main = () => {
   installDependencies();
+
+  console.log("Running husky install...");
+  execSync("yarn husky install", { stdio: "inherit" });
+  console.log("Husky install completed.");
 
   createTemplate();
 };
