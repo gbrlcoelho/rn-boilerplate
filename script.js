@@ -1,8 +1,6 @@
 #!/usr/bin/env node
 
 const { execSync } = require("child_process");
-const path = require("path");
-const fs = require("fs");
 
 const installDependencies = () => {
   const dependencies = [
@@ -46,36 +44,8 @@ const installDependencies = () => {
   console.log("Dev dependencies installed successfully.");
 };
 
-// const createTemplate = () => {
-//   const templateDir = path.join(__dirname, "template");
-
-//   if (!fs.existsSync(templateDir)) {
-//     fs.mkdirSync(templateDir);
-//   }
-
-//   console.log("Template created successfully.");
-// };
-
-// const addPrepareScript = () => {
-//   console.log("Adding prepare script...");
-//   const packageJsonPath = path.join(process.cwd(), "package.json");
-//   const packageJson = require(packageJsonPath);
-
-//   packageJson.scripts = packageJson.scripts || {};
-//   packageJson.scripts.prepare = "husky install";
-
-//   fs.writeFileSync(packageJsonPath, JSON.stringify(packageJson, null, 2));
-//   console.log("Prepare script added successfully.");
-// };
-
 const main = () => {
   installDependencies();
-
-  // addPrepareScript();
-
-  // execSync("yarn", { stdio: "inherit" });
-
-  // createTemplate();
 };
 
 main();
