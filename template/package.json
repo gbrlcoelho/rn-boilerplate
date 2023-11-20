@@ -9,6 +9,7 @@
     "start": "react-native start",
     "test": "jest --verbose",
     "coverage": "jest --coverage",
+    "prepare": "husky install",
     "commit": "npx git-cz"
   },
   "dependencies": {
