@@ -20,18 +20,10 @@ const queryClientConfig: QueryClientConfig = {
   defaultOptions: {
     queries: {
       retry: false,
-      cacheTime: Infinity,
     },
     mutations: {
       retry: false,
-      cacheTime: Infinity,
     },
-  },
-  logger: {
-    log: console.log,
-    warn: console.warn,
-    // @ts-ignore
-    error: process.env.NODE_ENV === 'test' ? () => {} : console.error,
   },
 };
 
