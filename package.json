@@ -16,7 +16,8 @@
     "starter-kit"
   ],
   "files": [
-    "template"
+    "template",
+    "template/.gitignore"
   ],
   "bugs": {
     "url": "https://github.com/gbrlcoelho/rn-boilerplate/issues"
