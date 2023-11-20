@@ -2,6 +2,9 @@
 
 const { execSync } = require("child_process");
 
+const ora = require("ora");
+const spinner = ora("Executing post init script ");
+
 const installDependencies = () => {
   const dependencies = [
     "@hookform/resolvers",
@@ -45,7 +48,21 @@ const installDependencies = () => {
 };
 
 const main = () => {
+  execSync("git init", { stdio: "inherit" });
   installDependencies();
 };
 
-main();
+new Promise((resolve) => {
+  spinner.start();
+  main();
+  resolve();
+})
+  .then(() => {
+    spinner.succeed();
+  })
+  .catch((error) => {
+    spinner.fail();
+    throw new Error(
+      `An error occurred while executing the post init script: ${error}`
+    );
+  });
