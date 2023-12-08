@@ -25,5 +25,8 @@
   },
   "homepage": "https://github.com/gbrlcoelho/rn-boilerplate#readme",
   "main": "script.js",
-  "scripts": {}
+  "scripts": {},
+  "dependencies": {
+    "chalk": "^5.3.0"
+  }
 }
