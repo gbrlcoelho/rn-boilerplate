@@ -1,7 +1,5 @@
 #!/usr/bin/env node
-
 const { execSync } = require("child_process");
-const chalk = require("chalk");
 
 const installDependencies = () => {
   const dependencies = [
@@ -36,18 +34,19 @@ const installDependencies = () => {
     "husky",
   ];
 
+  console.log("\n\n");
+
   console.log(
-    chalk.green(
-      "@gbrlcoelho/react-native-boilerplate initialized with success! 🚀\n"
-    )
+    "@gbrlcoelho/react-native-boilerplate initialized with success! 🚀\n"
   );
 
-  console.log(chalk.yellow("Installing dependencies... 🛠️\n"));
+  console.log("Installing dependencies... 🛠️\n");
   execSync(`yarn add ${dependencies.join(" ")}`, { stdio: "inherit" });
-  console.log(chalk.green("\nDependencies installed successfully. 🚀\n"));
+  console.log("Dependencies installed successfully. 🚀\n");
 
-  console.log(chalk.yellow("Installing dev dependencies... 🛠️\n"));
+  console.log("Installing dev dependencies... 🛠️\n");
   execSync(`yarn add ${devDependencies.join(" ")} -D`, { stdio: "inherit" });
+  console.log("Dev dependencies installed successfully.🚀\n");
 };
 
 const main = () => {
@@ -61,25 +60,17 @@ new Promise((resolve) => {
 })
   .then(() => {
     console.log(
-      chalk.cyan(
-        "- 🎉  Congrats! Your project is ready with @gbrlcoelho/react-native-boilerplate! 🎉\n"
-      )
+      "- 🎉  Congrats! Your project is ready with @gbrlcoelho/react-native-boilerplate! 🎉\n"
     );
 
     console.log(
-      chalk.cyan(
-        "- 📚 If you need to read more about this boilerplate : https://github.com/gbrlcoelho/rn-boilerplate/blob/master/README.md\n"
-      )
+      "- 📚 If you need to read more about this boilerplate : https://github.com/gbrlcoelho/rn-boilerplate/blob/master/README.md\n"
     );
     console.log(
-      chalk.cyan(
-        "- 🤕 If you have some troubles : https://github.com/gbrlcoelho/rn-boilerplate/issues\n"
-      )
+      "- 🤕 If you have some troubles : https://github.com/gbrlcoelho/rn-boilerplate/issues\n"
     );
     console.log(
-      chalk.cyan(
-        "- ⭐ If you love this boilerplate, give us a star, you will be a ray of sunshine in our lives :) https://github.com/gbrlcoelho/rn-boilerplate\n"
-      )
+      "- ⭐ If you love this boilerplate, give us a star, you will be a ray of sunshine in our lives :) https://github.com/gbrlcoelho/rn-boilerplate\n"
     );
   })
   .catch((error) => {
