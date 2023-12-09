@@ -17,7 +17,6 @@
   ],
   "files": [
     "template",
-    "template/.gitignore",
     "template.config.js"
   ],
   "bugs": {
