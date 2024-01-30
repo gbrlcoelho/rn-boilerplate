@@ -34,7 +34,7 @@ const installDependencies = () => {
     "husky",
   ];
 
-  console.log("\n\n");
+  console.log("\n");
 
   console.log(
     "@gbrlcoelho/react-native-boilerplate initialized with success! 🚀\n"
@@ -49,14 +49,9 @@ const installDependencies = () => {
   console.log("Dev dependencies installed successfully.🚀\n");
 };
 
-const renameNpmignoreToGitignore = () => {
-  execSync("mv .npmignore .gitignore", { stdio: "inherit" });
-};
-
 const main = () => {
   execSync("git init", { stdio: "inherit" });
   installDependencies();
-  renameNpmignoreToGitignore();
 };
 
 new Promise((resolve) => {
