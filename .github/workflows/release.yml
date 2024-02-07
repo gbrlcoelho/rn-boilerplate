@@ -1,0 +1,41 @@
+name: Create Release
+
+on:
+  push:
+    branches:
+      - master
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Calculate new tag
+        id: newtag
+        run: echo ::set-output name=NEW_TAG::$(echo $(($(git describe --tags $(git rev-list --tags --max-count=1) | tr -dc '0-9')+1)))
+
+      - name: Create new tag
+        uses: actions/github-script@v3
+        with:
+          github-token: ${{secrets.GITHUB_TOKEN}}
+          script: |
+            github.git.createRef({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              ref: 'refs/tags/${{ steps.newtag.outputs.NEW_TAG }}',
+              sha: context.sha
+            })
+
+      - name: Create Release
+        id: create_release
+        uses: actions/create-release@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          tag_name: ${{ steps.newtag.outputs.NEW_TAG }}
+          release_name: Release ${{ steps.newtag.outputs.NEW_TAG }}
+          draft: false
+          prerelease: false
