@@ -17,17 +17,17 @@ jobs:
         id: newtag
         run: echo ::set-output name=NEW_TAG::$(echo $(($(git describe --tags $(git rev-list --tags --max-count=1) | tr -dc '0-9')+1)))
 
-      - name: Create new tag
-        uses: actions/github-script@v3
-        with:
-          github-token: ${{secrets.GITHUB_TOKEN}}
-          script: |
-            github.git.createRef({
-              owner: context.repo.owner,
-              repo: context.repo.repo,
-              ref: 'refs/tags/${{ steps.newtag.outputs.NEW_TAG }}',
-              sha: context.sha
-            })
+      #   - name: Create new tag
+      #     uses: actions/github-script@v3
+      #     with:
+      #       github-token: ${{secrets.GITHUB_TOKEN}}
+      #       script: |
+      #         github.git.createRef({
+      #           owner: context.repo.owner,
+      #           repo: context.repo.repo,
+      #           ref: 'refs/tags/${{ steps.newtag.outputs.NEW_TAG }}',
+      #           sha: context.sha
+      #         })
 
       - name: Create Release
         id: create_release
