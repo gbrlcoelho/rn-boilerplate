@@ -24,16 +24,20 @@ jobs:
         run: echo "NEW_TAG=$(node -e "console.log(require('./package.json').version)")" >> $GITHUB_ENV
 
       - name: Generate release notes and changelog
+        env:
+          NEW_TAG: ${{ env.NEW_TAG }}
         run: |
           LAST_TAG=$(git describe --tags --abbrev=0)
           NEW_TAG=${{ env.NEW_TAG }}
           CHANGELOG=$(git log --pretty=format:"%h - %s (%an)" $LAST_TAG..HEAD)
-          RELEASE_NOTES="**Full Changelog**: https://github.com/${{ github.repository }}/compare/$LAST_TAG...$NEW_TAG\n\n$CHANGELOG"
+          RELEASE_NOTES="**Full Changelog**: https://github.com/${{ github.repository }}/compare/$LAST_TAG...$NEW_TAG"
           echo "RELEASE_NOTES<<EOF" >> $GITHUB_ENV
-          echo "$RELEASE_NOTES" >> $GITHUB_ENV
+          echo "$RELEASE_NOTES\n\n$CHANGELOG" >> $GITHUB_ENV
           echo "EOF" >> $GITHUB_ENV
 
       - name: Create new tag
+        env:
+          NEW_TAG: ${{ env.NEW_TAG }}
         uses: actions/github-script@v3
         with:
           github-token: ${{ secrets.RN_BOILERPLATE }}
@@ -47,10 +51,13 @@ jobs:
             });
 
       - name: Create Release
+
         id: create_release
         uses: actions/create-release@v1
         env:
           GITHUB_TOKEN: ${{ secrets.RN_BOILERPLATE }}
+          NEW_TAG: ${{ env.NEW_TAG }}
+          RELEASE_NOTES: ${{ env.RELEASE_NOTES }}
         with:
           tag_name: ${{ env.NEW_TAG }}
           release_name: ${{ env.NEW_TAG }}
