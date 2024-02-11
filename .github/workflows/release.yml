@@ -20,12 +20,14 @@ jobs:
         run: |
           echo ::set-output name=NEW_TAG::$(node -e "console.log(require('./package.json').version)")
 
-      - name: Generate changelog
-        id: changelog
+      - name: Generate release notes and changelog
+        id: releasenotes
         run: |
           LAST_TAG=$(git describe --tags --abbrev=0)
+          NEW_TAG=$(node -e "console.log(require('./package.json').version)")
           CHANGELOG=$(git log --pretty=format:"%h - %s (%an)" $LAST_TAG..HEAD)
-          echo ::set-output name=CHANGELOG::"$CHANGELOG"
+          RELEASE_NOTES="**Full Changelog**: https://github.com/${{ github.repository }}/compare/$LAST_TAG...$NEW_TAG\n\n$CHANGELOG"
+          echo ::set-output name=RELEASE_NOTES::"$RELEASE_NOTES"
 
       - name: Create new tag
         uses: actions/github-script@v3
@@ -48,6 +50,6 @@ jobs:
         with:
           tag_name: ${{ steps.newtag.outputs.NEW_TAG }}
           release_name: ${{ steps.newtag.outputs.NEW_TAG }}
-          body: ${{ steps.changelog.outputs.CHANGELOG }}
+          body: ${{ steps.releasenotes.outputs.RELEASE_NOTES }}
           draft: false
           prerelease: false
