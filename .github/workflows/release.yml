@@ -20,7 +20,7 @@ jobs:
       - name: Create new tag
         uses: actions/github-script@v3
         with:
-          github-token: ${{secrets.GITHUB_TOKEN}}
+          github-token: ${{secrets.RN_BOILERPLATE}}
           script: |
             const newTag = `refs/tags/${{ steps.newtag.outputs.NEW_TAG }}`;
             github.git.createRef({
@@ -34,7 +34,7 @@ jobs:
         id: create_release
         uses: actions/create-release@v1
         env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GITHUB_TOKEN: ${{ secrets.RN_BOILERPLATE }}
         with:
           tag_name: ${{ steps.newtag.outputs.NEW_TAG }}
           release_name: Release ${{ steps.newtag.outputs.NEW_TAG }}
@@ -42,4 +42,3 @@ jobs:
           prerelease: false
           body: |
             Release ${{ steps.newtag.outputs.NEW_TAG }}
-            - Add release notes and details here.
