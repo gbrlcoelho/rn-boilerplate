@@ -27,7 +27,7 @@ jobs:
           NEW_TAG=$(node -e "console.log(require('./package.json').version)")
           CHANGELOG=$(git log --pretty=format:"%h - %s (%an)" $LAST_TAG..HEAD)
           RELEASE_NOTES="**Full Changelog**: https://github.com/${{ github.repository }}/compare/$LAST_TAG...$NEW_TAG\n\n$CHANGELOG"
-          echo -e ::set-output name=RELEASE_NOTES::"$RELEASE_NOTES"
+          printf "::set-output name=RELEASE_NOTES::%s" "$RELEASE_NOTES"
 
       - name: Create new tag
         uses: actions/github-script@v3
