@@ -15,7 +15,7 @@ jobs:
         with:
           fetch-depth: 0
 
-      - name: Calculate new tag from package.json version
+      - name: Get new tag version
         id: newtag
         run: |
           echo ::set-output name=NEW_TAG::$(node -e "console.log(require('./package.json').version)")
