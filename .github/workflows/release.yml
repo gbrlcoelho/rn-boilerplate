@@ -30,10 +30,8 @@ jobs:
           LAST_TAG=$(git describe --tags --abbrev=0)
           NEW_TAG=${{ env.NEW_TAG }}
           CHANGELOG=$(git log --pretty=format:"%h - %s (%an)" $LAST_TAG..HEAD)
-          RELEASE_NOTES="**Full Changelog**: https://github.com/${{ github.repository }}/compare/$LAST_TAG...$NEW_TAG\n\n$CHANGELOG"
-          echo "RELEASE_NOTES<<EOF" >> $GITHUB_ENV
-          echo "$RELEASE_NOTES" >> $GITHUB_ENV
-          echo "EOF" >> $GITHUB_ENV
+          RELEASE_NOTES="**Full Changelog**: https://github.com/${{ github.repository }}/compare/$LAST_TAG...$NEW_TAG%0A%0A$CHANGELOG"
+          echo "RELEASE_NOTES=$RELEASE_NOTES" >> $GITHUB_ENV
 
       - name: Create new tag
         uses: actions/github-script@v3
