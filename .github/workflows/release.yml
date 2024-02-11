@@ -13,9 +13,10 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v2
 
-      - name: Calculate new tag
+      - name: Calculate new tag from package.json version
         id: newtag
-        run: echo ::set-output name=NEW_TAG::$(($(git describe --tags --abbrev=0 | tr -dc '0-9')+1))
+        run: |
+          echo ::set-output name=NEW_TAG::$(node -e "console.log(require('./package.json').version)")
 
       - name: Create new tag
         uses: actions/github-script@v3
