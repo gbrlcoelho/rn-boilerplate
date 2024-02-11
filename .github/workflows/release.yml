@@ -10,31 +10,33 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
+      - name: Setup Node.js environment
+        uses: actions/setup-node@v3
+        with:
+          node-version: "20"
+
       - name: Checkout code
         uses: actions/checkout@v2
         with:
           fetch-depth: 0
 
       - name: Get new tag version
-        id: newtag
-        run: |
-          echo ::set-output name=NEW_TAG::$(node -e "console.log(require('./package.json').version)")
+        run: echo "NEW_TAG=$(node -e "console.log(require('./package.json').version)")" >> $GITHUB_ENV
 
       - name: Generate release notes and changelog
-        id: releasenotes
         run: |
           LAST_TAG=$(git describe --tags --abbrev=0)
-          NEW_TAG=$(node -e "console.log(require('./package.json').version)")
+          NEW_TAG=${{ env.NEW_TAG }}
           CHANGELOG=$(git log --pretty=format:"%h - %s (%an)" $LAST_TAG..HEAD)
-          RELEASE_NOTES="**Full Changelog**: https://github.com/${{ github.repository }}/compare/$LAST_TAG...$NEW_TAG"
-          echo ::set-output name=RELEASE_NOTES::$RELEASE_NOTES
+          RELEASE_NOTES="**Full Changelog**: https://github.com/${{ github.repository }}/compare/$LAST_TAG...$NEW_TAG\n\n$CHANGELOG"
+          echo "RELEASE_NOTES=$RELEASE_NOTES" >> $GITHUB_ENV
 
       - name: Create new tag
         uses: actions/github-script@v3
         with:
           github-token: ${{ secrets.RN_BOILERPLATE }}
           script: |
-            const newTag = `refs/tags/${{ steps.newtag.outputs.NEW_TAG }}`;
+            const newTag = `refs/tags/${{ env.NEW_TAG }}`;
             github.git.createRef({
               owner: context.repo.owner,
               repo: context.repo.repo,
@@ -48,8 +50,8 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.RN_BOILERPLATE }}
         with:
-          tag_name: ${{ steps.newtag.outputs.NEW_TAG }}
-          release_name: ${{ steps.newtag.outputs.NEW_TAG }}
-          body: ${{ steps.releasenotes.outputs.RELEASE_NOTES }}
+          tag_name: ${{ env.NEW_TAG }}
+          release_name: ${{ env.NEW_TAG }}
+          body: ${{ env.RELEASE_NOTES }}
           draft: false
           prerelease: false
