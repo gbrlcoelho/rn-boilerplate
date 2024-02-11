@@ -27,8 +27,8 @@ jobs:
           NEW_TAG=$(node -e "console.log(require('./package.json').version)")
           CHANGELOG=$(git log --pretty=format:"%h - %s (%an)" $LAST_TAG..HEAD)
           RELEASE_NOTES="**Full Changelog**: https://github.com/${{ github.repository }}/compare/$LAST_TAG...$NEW_TAG"
-          echo "RELEASE_NOTES<<EOF" >> $GITHUB_ENV
-          echo "$RELEASE_NOTES $CHANGELOG" >> $GITHUB_ENV
+          echo "RELEASE_NOTES<<EOF<<EOF" >> $GITHUB_ENV
+          echo "$RELEASE_NOTES<<EOF$CHANGELOG" >> $GITHUB_ENV
           echo "EOF" >> $GITHUB_ENV
 
       - name: Set output
