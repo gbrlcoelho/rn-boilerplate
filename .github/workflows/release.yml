@@ -12,16 +12,25 @@ jobs:
     steps:
       - name: Checkout code
         uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
 
       - name: Calculate new tag from package.json version
         id: newtag
         run: |
           echo ::set-output name=NEW_TAG::$(node -e "console.log(require('./package.json').version)")
 
+      - name: Generate changelog
+        id: changelog
+        run: |
+          LAST_TAG=$(git describe --tags --abbrev=0)
+          CHANGELOG=$(git log --pretty=format:"%h - %s (%an)" $LAST_TAG..HEAD)
+          echo ::set-output name=CHANGELOG::"$CHANGELOG"
+
       - name: Create new tag
         uses: actions/github-script@v3
         with:
-          github-token: ${{secrets.RN_BOILERPLATE}}
+          github-token: ${{ secrets.RN_BOILERPLATE }}
           script: |
             const newTag = `refs/tags/${{ steps.newtag.outputs.NEW_TAG }}`;
             github.git.createRef({
@@ -38,8 +47,7 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.RN_BOILERPLATE }}
         with:
           tag_name: ${{ steps.newtag.outputs.NEW_TAG }}
-          release_name: Release ${{ steps.newtag.outputs.NEW_TAG }}
+          release_name: ${{ steps.newtag.outputs.NEW_TAG }}
+          body: ${{ steps.changelog.outputs.CHANGELOG }}
           draft: false
           prerelease: false
-          body: |
-            Release ${{ steps.newtag.outputs.NEW_TAG }}
