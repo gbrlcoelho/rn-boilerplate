@@ -6,9 +6,20 @@ The boilerplate provides **a solid foundation for building cross-platform mobile
 
 If you like the project, give us a star 🤩.
 
+## Table of Contents
+
+- [Requirements](#requirements)
+- [Quick Start](#quick-start)
+- [Dependencies](#dependencies)
+- [Dev Dependencies](#dev-dependencies)
+- [Folder Structure](#folder-structure)
+- [License](#license)
+- [About Us](#about-us)
+- [Contributing](#contributing)
+
 ## Requirements
 
-Node 18 or greater is required. Development for iOS requires a Mac and Xcode 10 or up, and will target iOS 11 and up.
+Node 18 or greater is required. Development for iOS requires a Mac and Xcode (please use the latest version).
 
 You also need to install the dependencies required by React Native.  
 Go to the [React Native environment setup](https://reactnative.dev/docs/environment-setup), then select `React Native CLI Quickstart` tab.  
